@@ -1,0 +1,24 @@
+#  用于开发本地测试环境
+
+spring:
+  datasource:
+    dynamic:
+      primary: master #设置默认的数据源或者数据源组,默认值即为master
+      strict: false #设置严格模式,默认false不启动. 启动后在未匹配到指定数据源时候会抛出异常,不启动则使用默认数据源.
+      datasource:
+        master:
+          url: jdbc:postgresql://localhost:5432/base
+          username: postgres
+          password: root
+          driver-class-name: org.postgresql.Driver
+        secondary:
+          url: jdbc:postgresql://localhost:5432/base
+          username: postgres
+          password: root
+          driver-class-name: org.postgresql.Driver
+
+oss-path: /home/ubuntu/uploadFile/ # 如果用到文件上传, 则需要在运行的时候在对应环境的yml中改成正确的地址
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

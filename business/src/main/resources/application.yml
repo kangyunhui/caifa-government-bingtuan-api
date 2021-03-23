@@ -1,0 +1,88 @@
+# 各个环境通用配置
+
+server:
+  port: 8080
+spring:
+  profiles:
+    active: dev
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+    #property-naming-strategy: SNAKE_CASE  # 出参时所有属性自动转下划线风格
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    default-property-inclusion: always
+    parser:
+      #允许出现特殊字符和转义符
+      allow_unquoted_control_chars: true
+  mvc:
+    throw-exception-if-no-handler-found: true
+  resources:
+    add-mappings: false
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  redis:
+      host: 127.0.0.1
+      port: 6379
+      database: 0
+      password:
+      timeout: 2000
+      lettuce:
+        pool:
+          max-active: 100
+          max-wait: -1
+          min-idle: 1
+          max-idle: 5
+  datasource: # 数据库连接池相关配置
+      type: com.alibaba.druid.pool.DruidDataSource
+      druid:
+        initial-size: 5
+        max-active: 50
+        min-idle: 1
+        filters: conn,config,stat,slf4j
+        filter:
+          wall:
+            config:
+              delete-allow: false
+              drop-table-allow: false
+cache-type: in-memory
+#配置日志
+logging:
+  #配置日志文件路径
+  level:
+    xatu.zsl: debug #不同目录下的日志可配置不同级别
+    org.springfromework.web: info
+    com.junyi.baseapi: info
+  #采用相对路径方式将日志文件输出到  log\myspringboot.log
+  file:
+    path: log\myspringboot.log
+
+# 登陆
+login:
+  secure:
+    key: f^LvBDelk#5X*,sY.7q6KioGxHgV%FWp
+  in-again: true
+  timeout: 4
+
+threadpool:
+  core-pool-size: 5
+  max-pool-size: 10
+  queue-capacity: 50
+  keep-alive-seconds: 100
+
+sms:
+  appid: waXHTmn1A8oEIneQNC5OxmEB-gzGzoHsz
+  appkey: NFDw7KXaqbfzbk4BwwqPRvaW
+  sign: 林木采伐管理系统
+  #请求地址
+  request-base-url: https://waXHTmn1.api.lncld.net/1.1/
+  caifazheng:
+    accept: #短信模板名称
+      template: moban
+
+mybatis-plus:
+  # 配置mapper的扫描，找到所有的mapper.xml映射文件
+  mapper-locations: classpath:mapper/**/*.xml
